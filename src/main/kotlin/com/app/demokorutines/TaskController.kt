@@ -13,6 +13,9 @@ class TaskController(private val service: TaskService) {
     @GetMapping("/{id}")
     suspend fun getTaskById(@PathVariable id: Long): Task? = service.getTaskById(id)
 
+    @GetMapping("/details/{id}")
+    suspend fun getTaskDetailsById(@PathVariable id: Long): TaskDetails? = service.getTaskWithDetails(id)
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     suspend fun createTask(@RequestBody task: Task): Task = service.createTask(task)
@@ -23,4 +26,7 @@ class TaskController(private val service: TaskService) {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     suspend fun deleteTask(@PathVariable id: Long) = service.deleteTask(id)
+
+    @GetMapping("/with-timeout/{id}")
+    suspend fun getTaskWithTimeout(@PathVariable id: Long): Task? = service.getTaskWithTimeout(id);
 }
